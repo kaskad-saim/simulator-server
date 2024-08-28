@@ -23,5 +23,5 @@ app.use(testRoutes);
 const port = process.env.PORT || 96;
 
 app.listen(port, () => {
-  console.log(`Listening on http://169.254.0.168:${port}`);
+  console.log(`Listening on http://localhost:${port}`);
 });

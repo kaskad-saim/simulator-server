@@ -21,11 +21,15 @@ export const validateInputs = (inputs) => {
         const numericValue = parseFloat(value);
         if (inputType === 'temperature' && (numericValue < 0 || numericValue > 1500)) {
           isValid = false;
-        } else if (inputType === 'pressure' && (numericValue < 0 || numericValue > 20)) {
+        } else if (inputType === 'pressure' && (numericValue < 0 || numericValue > 40)) {
           isValid = false;
         } else if (inputType === 'razrezh' && (numericValue < -10 || numericValue > 0)) {
           isValid = false;
         } else if (inputType === 'level' && (numericValue < -200 || numericValue > 200)) {
+          isValid = false;
+        } else if (inputType === 'levelSkrubber' && (numericValue < 0 || numericValue > 1000)) {
+          isValid = false;
+        } else if (inputType === 'levelHvo' && (numericValue < 0 || numericValue > 6000)) {
           isValid = false;
       }}
 
@@ -36,11 +40,15 @@ export const validateInputs = (inputs) => {
           errorElement.textContent = inputType === 'temperature'
           ? 'Диапазон от 0 до 1500'
           : inputType === 'pressure'
-          ? 'Диапазон от 0 до 20'
+          ? 'Диапазон от 0 до 40'
           : inputType === 'razrezh'
           ? 'Диапазон от 0 до -10'
           : inputType === 'level'
           ? 'Диапазон от -200 до 200'
+          : inputType === 'levelSkrubber'
+          ? 'Диапазон от 0 до 1000'
+          : inputType === 'levelHvo'
+          ? 'Диапазон от 0 до 6000'
           : 'Неизвестный тип ввода';
 
         }
@@ -54,7 +62,6 @@ export const validateInputs = (inputs) => {
       }
     }
   });
-
   return allValid;
 };
 
@@ -103,9 +110,15 @@ export const setupModalEvents = (btnModal, modalBackground, modalActive, btnAcce
       document.querySelector('#temperVodyVVanneSkrubberInputModal'),
       document.querySelector('#temperGazovKotelUtilizValInputModal'),
 
-      document.querySelector('#pVbarabaneInputModal'),
+      // document.querySelector('#pVbarabaneInputModal'),
+
+      document.querySelector('#DavlGazPosleSkrubberInputModal'),
+      document.querySelector('#razrezhNizZagrKameryInputModal'),
       document.querySelector('#razrezhVtopkeInputModal'),
-      document.querySelector('#urovenVkotleInputModal')
+      
+      document.querySelector('#urovenVkotleInputModal'),
+      document.querySelector('#urovenVskrubberInputModal'),
+      document.querySelector('#urovenHvoInputModal')
     ];
 
     if (validateInputs(inputs)) {

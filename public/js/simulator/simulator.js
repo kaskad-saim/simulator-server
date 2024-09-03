@@ -149,16 +149,35 @@ const tempergazovKotelUtilizClose = document.querySelector('.temper-gazov-kotel-
 const tempergazovKotelUtilizInput = document.querySelector('#temperGazovKotelUtilizValInput');
 const tempergazovKotelUtilizForm = document.querySelector('.mnemo__param-clue-form--temper-gazov-kotel-utiliz-val-clue');
 
+// const davlVbarabane = document.querySelector('.davl-v-barabane');
+// davlVbarabane.dataset.description = 'Давление в барабане котла';
+// davlVbarabane.dataset.conditionMin = 0;
+// davlVbarabane.dataset.conditionMax = 10;
+// const davlVbarabaneClick = document.querySelector('.davl-v-barabane-js');
+// const davlVbarabaneClue = document.querySelector('.p-v-barabane-clue');
+// const davlVbarabaneClose = document.querySelector('.p-v-barabane-clue-close')
+// const davlVbarabaneInput = document.querySelector('#pVbarabaneInput');
+// const davlVbarabaneForm = document.querySelector('.mnemo__param-clue-form--p-v-barabane-clue');
 
-const davlVbarabane = document.querySelector('.davl-v-barabane');
-davlVbarabane.dataset.description = 'Давление в барабане котла';
-davlVbarabane.dataset.conditionMin = 0;
-davlVbarabane.dataset.conditionMax = 10;
-const davlVbarabaneClick = document.querySelector('.davl-v-barabane-js');
-const davlVbarabaneClue = document.querySelector('.p-v-barabane-clue');
-const davlVbarabaneClose = document.querySelector('.p-v-barabane-clue-close')
-const davlVbarabaneInput = document.querySelector('#pVbarabaneInput');
-const davlVbarabaneForm = document.querySelector('.mnemo__param-clue-form--p-v-barabane-clue');
+const davlGazPosleSkrubber = document.querySelector('.davl-gaz-posle-skrubber');
+davlGazPosleSkrubber.dataset.description = 'Давление газов после скруббера';
+davlGazPosleSkrubber.dataset.conditionMin = 0;
+davlGazPosleSkrubber.dataset.conditionMax = 20;
+const davlGazPosleSkrubberClick = document.querySelector('.davl-gaz-posle-skrubber-js');
+const davlGazPosleSkrubberClue = document.querySelector('.davl-gaz-posle-skrubber-clue');
+const davlGazPosleSkrubberClose = document.querySelector('.davl-gaz-posle-skrubber-clue-close')
+const davlGazPosleSkrubberInput = document.querySelector('#davlGazPosleSkrubberInput');
+const davlGazPosleSkrubberForm = document.querySelector('.mnemo__param-clue-form--davl-gaz-posle-skrubber-clue');
+
+const razrezhNizZagrKam = document.querySelector('.razr-niz-zagr-kam');
+razrezhNizZagrKam.dataset.description = 'Разрежение внизу загрузочной камеры'
+razrezhNizZagrKam.dataset.conditionMin = -5;
+razrezhNizZagrKam.dataset.conditionMax = -1;
+const razrezhNizZagrKamClick = document.querySelector('.razr-niz-zagr-kam-js');
+const razrezhNizZagrKamClue = document.querySelector('.razr-niz-zagr-kam-clue');
+const razrezhNizZagrKamClose = document.querySelector('.razr-niz-zagr-kam-clue-close')
+const razrezhNizZagrKamInput = document.querySelector('#razrNizZagrKamInput');
+const razrezhNizZagrKamForm = document.querySelector('.mnemo__param-clue-form--razr-niz-zagr-kam-clue');
 
 const razrezhVtopke = document.querySelector('.razrezh-topka');
 razrezhVtopke.dataset.description = 'Разрежение в топке печи'
@@ -179,6 +198,26 @@ const urovenVkotleClue = document.querySelector('.uroven-v-kotle-clue');
 const urovenVkotleClose = document.querySelector('.uroven-v-kotle-clue-close')
 const urovenVkotleInput = document.querySelector('#urovenVkotleInput');
 const urovenVkotleForm = document.querySelector('.mnemo__param-clue-form--uroven-v-kotle-clue');
+
+const urovenVskrubber = document.querySelector('.uroven-vanne-skrubber-value');
+urovenVskrubber.dataset.description = 'Уровень в ванне скруббера'
+urovenVskrubber.dataset.conditionMin = 250;
+urovenVskrubber.dataset.conditionMax = 1000;
+const urovenVskrubberClick = document.querySelector('.uroven-vanne-skrubber-js');
+const urovenVskrubberClue = document.querySelector('.uroven-vanne-skrubber-clue');
+const urovenVskrubberClose = document.querySelector('.uroven-vanne-skrubber-clue-close')
+const urovenVskrubberInput = document.querySelector('#urovenSkrubberInput');
+const urovenVskrubberForm = document.querySelector('.mnemo__param-clue-form--uroven-vanne-skrubber-clue');
+
+const urovenHvo = document.querySelector('.uroven-vody-hvo-value');
+urovenHvo.dataset.description = 'Уровень воды в емкости ХВО'
+urovenHvo.dataset.conditionMin = 1500;
+urovenHvo.dataset.conditionMax = 6000;
+const urovenHvoClick = document.querySelector('.uroven-vody-hvo-js');
+const urovenHvoClue = document.querySelector('.uroven-vody-hvo-clue');
+const urovenHvoClose = document.querySelector('.uroven-vody-hvo-clue-close')
+const urovenHvoInput = document.querySelector('#urovenHvoInput');
+const urovenHvoForm = document.querySelector('.mnemo__param-clue-form--uroven-vody-hvo-clue');
 
 // Функции для инпутов в мнемосхеме
 tooltipVisible(
@@ -362,18 +401,32 @@ tooltipVisible(
   1500
 )
 
+// tooltipVisible(
+//   davlVbarabaneClick,
+//   davlVbarabaneClue,
+//   davlVbarabaneClose,
+//   davlVbarabaneInput,
+//   davlVbarabane,
+//   davlVbarabaneForm,
+//   false,
+//   null,
+//   0,
+//   40
+// );
+
 tooltipVisible(
-  davlVbarabaneClick,
-  davlVbarabaneClue,
-  davlVbarabaneClose,
-  davlVbarabaneInput,
-  davlVbarabane,
-  davlVbarabaneForm,
+  davlGazPosleSkrubberClick,
+  davlGazPosleSkrubberClue,
+  davlGazPosleSkrubberClose,
+  davlGazPosleSkrubberInput,
+  davlGazPosleSkrubber,
+  davlGazPosleSkrubberForm,
   false,
   null,
   0,
-  20
+  40
 );
+
 tooltipVisible(
   razrezhVtopkeClick,
   razrezhVtopkeClue,
@@ -386,6 +439,20 @@ tooltipVisible(
   -10,
   0
 );
+
+tooltipVisible(
+  razrezhNizZagrKamClick,
+  razrezhNizZagrKamClue,
+  razrezhNizZagrKamClose,
+  razrezhNizZagrKamInput,
+  razrezhNizZagrKam,
+  razrezhNizZagrKamForm,
+  false,
+  null,
+  -10,
+  0
+);
+
 tooltipVisible(
   urovenVkotleClick,
   urovenVkotleClue,
@@ -399,6 +466,31 @@ tooltipVisible(
   200
 );
 
+tooltipVisible(
+  urovenVskrubberClick,
+  urovenVskrubberClue,
+  urovenVskrubberClose,
+  urovenVskrubberInput,
+  urovenVskrubber,
+  urovenVskrubberForm,
+  false,
+  null,
+  0,
+  1000
+);
+
+tooltipVisible(
+  urovenHvoClick,
+  urovenHvoClue,
+  urovenHvoClose,
+  urovenHvoInput,
+  urovenHvo,
+  urovenHvoForm,
+  false,
+  null,
+  0,
+  6000
+);
 
 
 // Функции для инпутов в модалке
@@ -424,12 +516,14 @@ const modalInputTemperGazovPosleSkrubber = document.querySelector('#temperGazovP
 const modalInputTemperVodyVVanneSkrubber = document.querySelector('#temperVodyVVanneSkrubberInputModal');
 const modalInputTemperGazovKotelUtilizVal = document.querySelector('#temperGazovKotelUtilizValInputModal');
 
-
-
-const modalInputDavlVBarabane = document.querySelector('#pVbarabaneInputModal');
+// const modalInputDavlVBarabane = document.querySelector('#pVbarabaneInputModal');
+const modalInputDavlGazPosleSkrubber = document.querySelector('#DavlGazPosleSkrubberInputModal');
+const modalInputRazrezhNizZagrKam = document.querySelector('#razrezhNizZagrKameryInputModal');
 const modalInputRazrezhVtopke = document.querySelector('#razrezhVtopkeInputModal');
-const modalInputUrovenVkotle = document.querySelector('#urovenVkotleInputModal');
 
+const modalInputUrovenVkotle = document.querySelector('#urovenVkotleInputModal');
+const modalInputUrovenVskrubber = document.querySelector('#urovenVskrubberInputModal');
+const modalInputUrovenHvo = document.querySelector('#urovenHvoInputModal');
 
 
 tooltipVisible(
@@ -613,18 +707,45 @@ tooltipVisible(
   1500
 )
 
+// tooltipVisible(
+//   davlVbarabaneClick,
+//   davlVbarabaneClue,
+//   davlVbarabaneClose,
+//   modalInputDavlVBarabane,
+//   davlVbarabane,
+//   modalForm,
+//   false,
+//   null,
+//   0,
+//   40
+// );
+
 tooltipVisible(
-  davlVbarabaneClick,
-  davlVbarabaneClue,
-  davlVbarabaneClose,
-  modalInputDavlVBarabane,
-  davlVbarabane,
+  davlGazPosleSkrubberClick,
+  davlGazPosleSkrubberClue,
+  davlGazPosleSkrubberClose,
+  modalInputDavlGazPosleSkrubber,
+  davlGazPosleSkrubber,
   modalForm,
   false,
   null,
   0,
-  20
+  40
 );
+
+tooltipVisible(
+  razrezhNizZagrKamClick,
+  razrezhNizZagrKamClue,
+  razrezhNizZagrKamClose,
+  modalInputRazrezhNizZagrKam,
+  razrezhNizZagrKam,
+  modalForm,
+  false,
+  null,
+  -10,
+  0
+);
+
 tooltipVisible(
   razrezhVtopkeClick,
   razrezhVtopkeClue,
@@ -637,6 +758,7 @@ tooltipVisible(
   -10,
   0
 );
+
 tooltipVisible(
   urovenVkotleClick,
   urovenVkotleClue,
@@ -649,6 +771,32 @@ tooltipVisible(
   -200,
   200
 );
+tooltipVisible(
+  urovenVskrubberClick,
+  urovenVskrubberClue,
+  urovenVskrubberClose,
+  modalInputUrovenVskrubber,
+  urovenVskrubber,
+  modalForm,
+  false,
+  null,
+  0,
+  1000
+);
+tooltipVisible(
+  urovenHvoClick,
+  urovenHvoClue,
+  urovenHvoClose,
+  modalInputUrovenHvo,
+  urovenHvo,
+  modalForm,
+  false,
+  null,
+  0,
+  6000
+);
+
+
 
 
 // Инициализация синхронизации инпутов и span

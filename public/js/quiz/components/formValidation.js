@@ -1,11 +1,22 @@
-export const checkAllQuestionsAnswered = (formData) => {
-  const answeredQuestions = [...formData.keys()].map((key) => key.split('question')[1]);
-  const allQuestions = ['1', '2', '3', '4', '5', '6', '7', '8'];
-  return allQuestions.every((question) => answeredQuestions.includes(question));
+// Обновленная функция проверки всех ответов
+export const checkAllQuestionsAnswered = (form) => {
+  const questions = form.querySelectorAll('.test__question');
+  return Array.from(questions).every((question) => {
+    const inputs = question.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+    return Array.from(inputs).some((input) => input.checked);
+  });
 };
 
-export const getUnansweredQuestions = (formData) => {
-  const answeredQuestions = [...formData.keys()].map((key) => key.split('question')[1]);
-  const allQuestions = ['1', '2', '3', '4', '5', '6', '7', '8'];
-  return allQuestions.filter((question) => !answeredQuestions.includes(question));
+// Обновленная функция получения неотвеченных вопросов
+export const getUnansweredQuestions = (form) => {
+  const questions = form.querySelectorAll('.test__question');
+  const unansweredQuestions = [];
+
+  questions.forEach((question, index) => {
+    const inputs = question.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+    const isAnswered = Array.from(inputs).some((input) => input.checked);
+    if (!isAnswered) unansweredQuestions.push(index + 1); // Индексация вопросов
+  });
+
+  return unansweredQuestions;
 };

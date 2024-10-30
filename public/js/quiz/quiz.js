@@ -1,80 +1,47 @@
-import { checkAllQuestionsAnswered, getUnansweredQuestions } from './components/formValidation.js';
-import { hideLoadingIndicator, showLoadingIndicator } from './components/loadingIndicator.js';
 import { closeModal, setupModalCloseEvents } from './components/modals.js';
-import { updateResultUI } from './components/resultUI.js';
+import { loadQuestions } from './components/questionRenderer.js';
+import { handleSubmitTest } from './components/testHandler.js';
+import { checkAllQuestionsAnswered, getUnansweredQuestions } from './components/formValidation.js';
 
-const testBtn = document.querySelector('.test__form-btn');
-const modalBackground = document.querySelector('.mnemo__modal-background');
-const modalContent = document.querySelector('.mnemo__modal-start');
-const modalBackgroundUnanswered = document.querySelector('.mnemo__modal-background-unanswered');
-const modalContentUnanswered = document.querySelector('.mnemo__modal-start-unanswered');
-const closeButton = document.querySelector('.modal-results-close-js');
-const closeButtonUnanswered = document.querySelector('.modal-unanswered-close-js');
-const loadingIndicator = document.getElementById('loadingIndicator');
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadQuestions();
 
-testBtn.addEventListener('click', async (e) => {
-  e.preventDefault();
+  const modalBackground = document.querySelector('.mnemo__modal-background');
+  const modalContent = document.querySelector('.mnemo__modal-start');
+  const closeButton = document.querySelector('.modal-results-close-js');
 
-  const form = document.getElementById('testForm');
-  const result = document.getElementById('result');
+  // Настройка основного модального окна
+  setupModalCloseEvents(closeButton, modalBackground, () => closeModal(modalBackground, modalContent, true));
 
-  const formData = new FormData(form);
+  const testBtn = document.querySelector('.test__form-btn');
+  testBtn.addEventListener('click', (e) => {
+    e.preventDefault();
 
-  // Проверяем, все ли вопросы отвечены
-  if (!checkAllQuestionsAnswered(formData)) {
-    const unansweredQuestions = getUnansweredQuestions(formData);
-    document.querySelector('.mnemo__modal-quiz-unanswered-span').textContent = unansweredQuestions.join(', ');
-    modalBackgroundUnanswered.classList.add('enabled');
-    modalContentUnanswered.classList.add('enabled');
-    return;
-  }
+    const form = document.getElementById('testForm');
 
-  // Преобразуем FormData в объект
-  const formObject = Object.fromEntries(formData);
+    if (!checkAllQuestionsAnswered(form)) {
+      // Если есть пропущенные вопросы, показываем модальное окно
+      const unansweredQuestions = getUnansweredQuestions(form);
 
-  // Собираем все выбранные значения для вопроса с несколькими чекбоксами
-  const selectedValues = formData.getAll('question8');
-  formObject.question8 = selectedValues; // Добавляем массив значений для question8 в объект
+      // Открытие модального окна для неотвеченных вопросов
+      const unansweredModalBackground = document.querySelector('.mnemo__modal-background-unanswered');
+      const unansweredModalContent = document.querySelector('.mnemo__modal-start-unanswered');
+      const unansweredSpan = document.querySelector('.mnemo__modal-quiz-unanswered-span');
 
-  try {
-    // Показать индикатор загрузки
-    showLoadingIndicator(loadingIndicator);
+      // Добавляем список пропущенных вопросов в модальное окно
+      unansweredSpan.textContent = unansweredQuestions.join(', ');
 
-    const response = await fetch('/submit-test', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formObject),
-    });
+      // Показываем модальное окно
+      unansweredModalBackground.classList.add('enabled');
+      unansweredModalContent.classList.add('enabled');
 
-    const { score, totalQuestions, resultMessage, incorrectAnswerNumbers } = await response.json();
+      // Настройка закрытия модального окна с неотвеченными вопросами
+      const unansweredCloseButton = document.querySelector('.modal-unanswered-close-js');
+      setupModalCloseEvents(unansweredCloseButton, unansweredModalBackground, () => closeModal(unansweredModalBackground, unansweredModalContent, false));
 
-    document.querySelector('.mnemo__modal-quiz-incorrect-span').textContent = incorrectAnswerNumbers.join(', ');
-
-    if (incorrectAnswerNumbers.length === 0) {
-      document.querySelector('.mnemo__modal-quiz-incorrect').style.display = 'none';
+    } else {
+      // Если все вопросы отвечены, отправляем тест
+      handleSubmitTest(e);
     }
-
-    result.textContent = `${score}/${totalQuestions}`;
-    updateResultUI(resultMessage, score, totalQuestions);
-
-    // Добавить задержку перед открытием модального окна с результатами
-    setTimeout(() => {
-      modalBackground.classList.add('enabled');
-      modalContent.classList.add('enabled');
-    }, 1000);
-  } catch (error) {
-    console.error('Ошибка:', error);
-  } finally {
-    // Скрыть индикатор загрузки после небольшой задержки
-    setTimeout(() => {
-      hideLoadingIndicator(loadingIndicator);
-    }, 1000);
-  }
+  });
 });
-
-setupModalCloseEvents(closeButton, modalBackground, () => closeModal(modalBackground, modalContent, true)); // Перезагрузка после закрытия
-setupModalCloseEvents(closeButtonUnanswered, modalBackgroundUnanswered, () =>
-  closeModal(modalBackgroundUnanswered, modalContentUnanswered, false) // Не перезагружать страницу при закрытии модалки для неотвеченных вопросов
-);

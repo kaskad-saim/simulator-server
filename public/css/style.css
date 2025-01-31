@@ -1526,6 +1526,13 @@ body::-webkit-scrollbar-thumb {
   text-decoration: none;
 }
 
+.mnemo__modal-box--link-mnemo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-left: transparent;
+}
+
 .mnemo__modal-box--btn:hover {
   color: white;
   background-color: green;
@@ -1931,7 +1938,8 @@ body::-webkit-scrollbar-thumb {
   cursor: pointer;
 }
 
-.troubleshooting__subtitle:hover, .troubleshooting__subtitle.active {
+.troubleshooting__subtitle:hover,
+.troubleshooting__subtitle.active {
   color: white;
   background-color: green;
 }
@@ -2153,6 +2161,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .fixed-bottom {
+  width: 250px;
+  height: 50px;
   position: fixed;
   bottom: 20px;
   left: 50%;
